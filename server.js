@@ -7,14 +7,17 @@ var connections = [];
 
 
 io.on("connection", function(sock) {
-  connections.push(sock);
-  console.log("%s connected", connections.length);
-  sock.on('disconnect', function() {
-    connections.splice(connections.indexOf(sock), 1);
-    console.log("disconnected");
-    console.log("%s still connected", connections.length);
+  // connections.push(sock);
+  // sock.on('disconnect', function() {
+  //   connections.splice(connections.indexOf(sock), 1);
+  //   console.log("disconnected");
+  // });
+
+  sock.on('send message', (msg) => {
+    io.emit("new message", { newMsg: msg.sendMsg});
   });
 });
+
 
 server.listen(3000, function() {
   console.log("server running on 3000...");
