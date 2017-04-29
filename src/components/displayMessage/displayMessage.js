@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import io from 'socket.io-client';
+
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {submitForm} from '../../actions';
 
 class DisplayMessage extends Component{
 
@@ -9,25 +12,41 @@ class DisplayMessage extends Component{
   }
 
   componentDidMount() {
-  
+
   }
 
-  render() {
-    let MessageDetails = this.props.message.map((element, index) => {
+  messageDetails() {
+    let messageDetails;
+    if(this.props.messages.length == 0) {
+      return  <h3 className="text-center">Message will be displayed here</h3>
+    }
+    return this.props.messages.map((element, index) => {
       return (
         <div className="well well-lg" key={index} >
           {element}
         </div>
       );
     });
-    if(this.props.message.length == 0) {
-      MessageDetails = <h3 className="text-center">Message will be displayed here</h3>;
-    }
+  }
+
+  render() {
+    // let MessageDetails =
+
     return (
       <div id="message-block">
-        {MessageDetails}
+        {this.messageDetails()}
       </div>
     )
   }
 }
-export default DisplayMessage
+
+function mapStateToProps(state) {
+  console.log(state);
+	return {
+		messages: state.messages
+	}
+}
+
+
+
+export default connect(mapStateToProps)(DisplayMessage)

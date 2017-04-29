@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import io from 'socket.io-client';
+
+
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {submitForm} from '../../actions';
 
 class DisplayForm extends Component{
 
@@ -9,16 +12,16 @@ class DisplayForm extends Component{
   }
 
   componentDidMount() {
-    this.socket = io.connect('http://localhost:3000');
-    this.socket.on('connection');
+
   }
 
   _handleSubmit(e) {
     e.preventDefault();
     let text = document.getElementById("message").value;
-    this.socket.emit("send message", { sendMsg : text});
+    this.props.submitForm(text);
+
     document.getElementById("message").value = " ";
-  
+
   }
 
   render() {
@@ -34,4 +37,8 @@ class DisplayForm extends Component{
     )
   }
 }
-export default DisplayForm
+
+function matchDispatchToProps(dispatch) {
+  return bindActionCreators({submitForm: submitForm}, dispatch);
+}
+export default connect('',matchDispatchToProps)(DisplayForm)
