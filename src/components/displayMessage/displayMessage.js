@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import io from 'socket.io-client';
-
-import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {submitForm} from '../../actions';
 
 class DisplayMessage extends Component{
 
@@ -12,7 +8,7 @@ class DisplayMessage extends Component{
   }
 
   componentDidMount() {
-
+  
   }
 
   messageDetails() {
@@ -30,8 +26,6 @@ class DisplayMessage extends Component{
   }
 
   render() {
-    // let MessageDetails =
-
     return (
       <div id="message-block">
         {this.messageDetails()}
@@ -41,7 +35,6 @@ class DisplayMessage extends Component{
 }
 
 function mapStateToProps(state) {
-  console.log(state);
 	return {
 		messages: state.messages
 	}

@@ -7,13 +7,16 @@ var connections = [];
 
 
 io.on("connection", function(sock) {
-  // connections.push(sock);
-  // sock.on('disconnect', function() {
-  //   connections.splice(connections.indexOf(sock), 1);
-  //   console.log("disconnected");
-  // });
+
+  connections.push(sock);
+  console.log("%s clients connected", connections.length);
+  sock.on('disconnect', function() {
+    connections.splice(connections.indexOf(sock), 1);
+    console.log("disconnected");
+  });
 
   sock.on('send message', (msg) => {
+    console.log(msg);
     io.emit("new message", { newMsg: msg.sendMsg});
   });
 });
