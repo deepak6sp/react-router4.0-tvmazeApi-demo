@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import io from 'socket.io-client';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {receiveMessage} from '../../actions';
+import {searchText} from '../../actions';
+
 
 class DisplayForm extends Component{
 
@@ -15,27 +15,18 @@ class DisplayForm extends Component{
   }
 
   componentDidMount() {
-    this.socket = io.connect('http://localhost:3000');
-    this.socket.on('connection');
-    this._handleMessageEvent();
+
   }
 
   _handleSubmit(e) {
     e.preventDefault();
     let text = this.state.inputValue;
-    this.socket.emit("send message", { sendMsg : text});
+    this.props.searchText(text);
     this.setState({ inputValue : ''})
-
-    if(document.getElementById("message-block").clientHeight > (window.innerHeight/6)){
-      document.getElementById("message-block").lastChild.scrollIntoView();
-    }
-
   }
 
   _handleMessageEvent() {
-    this.socket.on("new message", (msg) => {
-      this.props.receiveMessage(msg.newMsg);
-    });
+
   }
 
   _handleChange(e) {
@@ -64,6 +55,6 @@ class DisplayForm extends Component{
 }
 
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({receiveMessage: receiveMessage}, dispatch);
+  return bindActionCreators({searchText: searchText}, dispatch);
 }
-export default connect('',matchDispatchToProps)(DisplayForm)
+export default connect(null,matchDispatchToProps)(DisplayForm)

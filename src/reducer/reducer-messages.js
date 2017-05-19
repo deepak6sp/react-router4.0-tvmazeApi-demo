@@ -1,8 +1,9 @@
-export default function(state, action) {
+export default function(state = [], action) {
+  console.log('action received', action);
   switch(action.type) {
     case "SUBMIT_BUTTON_CLICKED":
-                return [...state, action.payload];
+                return action.payload;
                 break;
   }
-  return [];
+  return state;
 }

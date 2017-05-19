@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Form from "./displayForm";
-import MessagesBlock from "./displayMessagesBlock";
+import Display from "./display";
 
 const App = () => {
   return (
     <div className="container container-fluid">
-      <MessagesBlock />
       <Form />
+      <Display />
     </div>
   );
 };
