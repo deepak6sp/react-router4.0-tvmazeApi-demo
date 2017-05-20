@@ -40,7 +40,7 @@ class DisplayForm extends Component{
             <div className="col-sm-12">
               <textarea
                 id="message"
-                placeholder="Enter msg here"
+                placeholder="Enter tv show name here"
                 className="form-control"
                 rows="3"
                 value={this.state.inputValue}
