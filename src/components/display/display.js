@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Popup from '../displayPopup';
+import Actor from '../displayActor';
+import { Link } from 'react-router-dom';
 
 
 class Display extends Component{
@@ -17,10 +19,11 @@ class Display extends Component{
           if(element.show.image != null) {
             return (
                 <div className="col-sm-4" key={element.show.id} >
+                  <Link to={"/actor/"+element.show.id}>
                   <img
                     src={element.show.image.original}
-                    style={{"margin":"10px","width":"200px"}}
-                    data-toggle="modal" data-target={"#myModal-"+element.show.id} />
+                    style={{"margin":"10px","width":"200px"}} />
+                  </Link>
                     <Popup details={element}/>
                 </div>
             );
